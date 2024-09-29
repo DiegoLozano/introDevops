@@ -2,24 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                git branch: 'jenkinsBranch', url: 'https://github.com/DiegoLozano/introDevops.git'
+                echo 'Building jenkins image'
             }
         }
-        stage('Build') {
-	    when{
-		branch 'jenkinsBranch' 
-	    }
-
+        stage('Test') {
             steps {
-                sh 'docker build -t jenkins/jenkins:lts'
+                echo 'Testing jenkins'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'docker run -d --name jenkins -p 80:80 jenkins/jenkins:lts'
+                echo 'Deploying jenkins pipeline'
             }
         }
     }
 }
+
